@@ -1,0 +1,51 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "contentVersion": "1.0.0.0",
+        "parameters": {},
+        "triggers": {
+            "manual": {
+                "type": "Request",
+                "kind": "Http",
+                "inputs": {
+                    "method": "POST",
+                    "schema": {
+                        "properties": {
+                            "productId": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "actions": {
+            "HTTP": {
+                "runAfter": {},
+                "type": "Http",
+                "inputs": {
+                    "method": "GET",
+                    "queries": {
+                        "productId": "@triggerBody()['productId']"
+                    },
+                    "uri": "https://organicsfunction.azurewebsites.net/api/HttpTriggerCSharp"
+                }
+            },
+            "Response": {
+                "runAfter": {
+                    "HTTP": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Response",
+                "kind": "Http",
+                "inputs": {
+                    "body": "The product name for your product id @{triggerBody()?['productId']} is Starfruit Explosion",
+                    "statusCode": 200
+                }
+            }
+        },
+        "outputs": {}
+    }
+}
