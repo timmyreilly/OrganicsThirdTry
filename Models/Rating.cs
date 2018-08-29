@@ -10,8 +10,8 @@ namespace OrganicsThirdTry {
             public string locationName { get; set; }
             public int rating { get; set; }
             public string userNotes { get; set; }
-            public int magicNumber { get; set; }
+            // public int magicNumber { get; set; }
 
-            public double sentimentScore { get; set; }
+            // public double sentimentScore { get; set; }
         }
 }
