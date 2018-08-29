@@ -13,5 +13,6 @@ namespace OrganicsThirdTry {
             // public int magicNumber { get; set; }
 
             // public double sentimentScore { get; set; }
+            
         }
 }

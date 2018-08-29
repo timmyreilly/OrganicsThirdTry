@@ -1,4 +1,3 @@
-
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -14,17 +13,26 @@ namespace OrganicsThirdTry
     public static class GetRating
     {
         [FunctionName("GetRating")]
-        public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ratings/{id:guid}")]HttpRequest req,
-             [CosmosDB(
+        public static HttpResponseMessage Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ratings/{id}")]HttpRequestMessage req,
+            [CosmosDB(
                 databaseName: "Challenge2",
                 collectionName: "Ratings",
                 ConnectionStringSetting = "CosmosConnectionString",
-                PartitionKey = "{id}",
                 Id = "{id}")]
                 //SqlQuery = "select * from Ratings r where r.id = {id}")]
-                Rating rating, TraceWriter log)
+                OrganicsThirdTry.Rating document, TraceWriter log)
         {
-            return (ActionResult)new OkObjectResult(rating);
+            if (document == null)
+            {
+                log.Info("Not found"); 
+                log.Info(document.ToString()); 
+                return req.CreateResponse(System.Net.HttpStatusCode.NotFound);
+            }
+            else
+            {
+                return req.CreateResponse(System.Net.HttpStatusCode.OK, document);
+            }
         }
     }
 }
