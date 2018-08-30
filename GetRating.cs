@@ -30,10 +30,6 @@ namespace OrganicsThirdTry
 
             FeedOptions queryOptions = new FeedOptions { MaxItemCount = -1 };
 
-            // IQueryable<Rating> ratingQuery = documentClient.CreateDocumentQuery<Rating>(
-            //     UriFactory.CreateDocumentCollectionUri("ChallengeTwo", "Ratings"), queryOptions).Where(i => i.id == id); 
-            // ) 
-
 
             if (!string.IsNullOrWhiteSpace(limitQueryParameter))
                 limit = int.Parse(limitQueryParameter);
@@ -41,54 +37,17 @@ namespace OrganicsThirdTry
             var collectionUri = UriFactory.CreateDocumentCollectionUri("ChallengeTwo", "Ratings");
             // IDocumentQuery<dynamic> q = documentClient.CreateDatabaseQuery<Rating>("Select * from Ratings r where r.id = id").AsDocumentQuery(); 
 
-            IDocumentQuery<Rating> rdog = documentClient.CreateDocumentQuery<Rating>(collectionUri).Where(rt => rt.id == id).AsDocumentQuery();
-            // Assert("Expected only 1 rating", rdog.ToList().Count == 1); 
 
-            var guid = new System.Guid("9337a7bc-176c-4971-bf74-41537bb78ba9");
+            // var guid = new System.Guid("9337a7bc-176c-4971-bf74-41537bb78ba9");
+            var guid = new System.Guid(id);
 
-            var rating = documentClient.CreateDocumentQuery<Rating>(collectionUri).Where(b => b.id == guid ).AsEnumerable().FirstOrDefault(); 
-            log.Info(rating.ToString()); 
+            var rating = documentClient.CreateDocumentQuery<Rating>(collectionUri).Where(b => b.id == guid).AsEnumerable().FirstOrDefault();
+            log.Info(rating.ToString());
 
-            IDocumentQuery<Rating> query = documentClient.CreateDocumentQuery<Rating>(collectionUri)
-                .Take(limit)
-                .AsDocumentQuery();
 
             // return new OkObjectResult(await query.ExecuteNextAsync());
             return new OkObjectResult(rating.ToString());
         }
-
-        //     [FunctionName("CosmosDBSample")]
-        //     public static HttpResponseMessage Run(
-        // [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "foo/{id}")] HttpRequestMessage req,
-        // [CosmosDB(databaseName: "ChallengeTwo",
-        //             collectionName: "Ratings",
-        //             ConnectionStringSetting = "CosmosConnectionString", Id = "{id}")] object document)
-        //     {
-        //         if (document == null)
-        //         {
-        //             return req.CreateResponse(System.Net.HttpStatusCode.NotFound);
-        //         }
-        //         else
-        //         {
-        //             return req.CreateResponse(System.Net.HttpStatusCode.OK, document);
-        //         }
-        //     }
-
-        //     [FunctionName("COSMSOSOSOSOSOSOS")]
-        //     public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "foo/{id}")] HttpRequestMessage req,
-        // [CosmosDB(databaseName: "ChallengeTwo",
-        //             collectionName: "Ratings",
-        //             ConnectionStringSetting = "CosmosConnectionString", Id = "{id}")] object document, TraceWriter log)
-        //     {
-        //         if (document == null)
-        //         {
-        //             return req.CreateResponse(System.Net.HttpStatusCode.NotFound);
-        //         }
-        //         else
-        //         {
-        //             return req.CreateResponse(System.Net.HttpStatusCode.OK, document);
-        //         }
-        //     }
     }
 
 }
