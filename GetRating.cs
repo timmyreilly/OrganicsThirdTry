@@ -8,18 +8,15 @@ using System.Linq;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 using System.Threading.Tasks;
-using System.Web; 
 
 namespace OrganicsThirdTry
 {
     public static class GetRating
     {
-        private static readonly string bob = System.Environment.GetEnvironmentVariable("DBName"); 
-
         [FunctionName("GetRating")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "rating")]HttpRequest req,
-            [CosmosDB(bob, "Ratings",
+            [CosmosDB( "DBName", "Ratings",
                 ConnectionStringSetting = "CosmosConnectionString")]
                 DocumentClient documentClient,
             TraceWriter log
@@ -51,7 +48,6 @@ namespace OrganicsThirdTry
             // return new OkObjectResult(await query.ExecuteNextAsync());
             return new OkObjectResult(rating.ToString());
         }
-
     }
 
 }
