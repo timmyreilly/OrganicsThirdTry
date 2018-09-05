@@ -75,58 +75,6 @@ namespace OrganicsThirdTry
             return documentClient;
         }
 
-        // public async Task<Rating> CreateRating(dynamic data, DocumentClient dClient, HttpClient client, ILogger logger) 
-        // {
-        //     var id = Guid.NewGuid(); 
-        //     var timestamp = DateTime.UtcNow; 
-        //     var rand = new Random(); 
 
-        //                 var rating = new Rating
-        //     {
-        //         id = id,
-        //         userId = data.userId,
-        //         productId = data.productId,
-        //         timestamp = timestamp,
-        //         locationName = data.locationName,
-        //         rating = data.rating,
-        //         userNotes = data.userNotes
-        //         // ,
-        //         // magicNumber = rand.Next(),
-        //         // sentimentScore = sentimentScore
-        //     };
-
-        //     await dClient.UpsertDocumentAsync(dClient, data); 
-
-        // }
     }
 }
-// var postData = new
-// {
-//     documents = new[]
-//         {
-//             new
-//             {
-//                 language = "en",
-//                 id = id,
-//                 text = data.userNotes
-//             }
-//         }
-// };
-// //CognitivesServicesApiKey
-// client.DefaultRequestHeaders.Clear();
-// var key = Environment.GetEnvironmentVariable("CognitivesServicesApiKey");
-// client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", key);
-// var sentimentResponse = await client.PostAsJsonAsync("https://westeurope.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment", postData);
-
-// double sentimentScore = 0;
-
-// if (sentimentResponse.IsSuccessStatusCode)
-// {
-//     var scores = await sentimentResponse.Content.ReadAsAsync<dynamic>();
-
-
-//     var documentScore = ((IEnumerable<dynamic>)scores.documents).SingleOrDefault();
-//     sentimentScore = double.Parse((string)documentScore.score);
-// }
-
-// logger.LogMetric("SentimentMetric", sentimentScore);
