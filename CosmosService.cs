@@ -46,29 +46,29 @@ namespace OrganicsThirdTry
             return rating;
         }
 
-        public async Task<Rating> CreateRating(dynamic data, DocumentClient dClient, HttpClient client, ILogger logger) 
-        {
-            var id = Guid.NewGuid(); 
-            var timestamp = DateFormatHandling.UtcNow; 
-            var rand = new Random(); 
+        // public async Task<Rating> CreateRating(dynamic data, DocumentClient dClient, HttpClient client, ILogger logger) 
+        // {
+        //     var id = Guid.NewGuid(); 
+        //     var timestamp = DateTime.UtcNow; 
+        //     var rand = new Random(); 
 
-                        var rating = new Rating
-            {
-                id = id,
-                userId = data.userId,
-                productId = data.productId,
-                timestamp = timestamp,
-                locationName = data.locationName,
-                rating = data.rating,
-                userNotes = data.userNotes
-                // ,
-                // magicNumber = rand.Next(),
-                // sentimentScore = sentimentScore
-            };
+        //                 var rating = new Rating
+        //     {
+        //         id = id,
+        //         userId = data.userId,
+        //         productId = data.productId,
+        //         timestamp = timestamp,
+        //         locationName = data.locationName,
+        //         rating = data.rating,
+        //         userNotes = data.userNotes
+        //         // ,
+        //         // magicNumber = rand.Next(),
+        //         // sentimentScore = sentimentScore
+        //     };
 
-            await dClient.UpsertDocumentAsync(data)
+        //     await dClient.UpsertDocumentAsync(dClient, data); 
 
-        }
+        // }
     }
 }
             // var postData = new

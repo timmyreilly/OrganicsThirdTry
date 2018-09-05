@@ -1,6 +1,6 @@
 
 using System.IO;
-using System; 
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
@@ -16,13 +16,13 @@ namespace Company.Function
     {
         [FunctionName("HttpTriggerCSharp")]
         public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequest req, 
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequest req,
             ILogger log,
             [CosmosDB(
                 databaseName: "DatabaseThree",
                 collectionName: "collectionOne",
                 ConnectionStringSetting = "CosmosConnectionString",
-                CreateIfNotExists = true 
+                CreateIfNotExists = true
 
             )]out dynamic document)
         {
@@ -31,18 +31,18 @@ namespace Company.Function
             string name = req.Query["name"];
 
             // log.LogInformation("Something you might be interested in: " + ConfigurationManager.AppSettings["cosmosConnectionString"]);
-            // log.LogInformation("Something you might be interested in: " + ConfigurationManager.AppSettings["cosmosStringFromHost"]);
+            log.LogInformation("Something you might be interested in: " + System.Environment.GetEnvironmentVariable("SomethingDumb", EnvironmentVariableTarget.Process));
 
             string requestBody = new StreamReader(req.Body).ReadToEnd();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             name = name ?? data?.name;
 
-            document = new { Description = name, IDesignTimeMvcBuilderConfiguration= Guid.NewGuid()}; 
+            document = new { Description = name, IDesignTimeMvcBuilderConfiguration = Guid.NewGuid() };
 
 
-             return document != null
-                 ? (ActionResult)new OkObjectResult($"Hello, {name}")
-                 : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
+            return document != null
+                ? (ActionResult)new OkObjectResult($"Hello, {name}")
+                : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
         }
     }
 }
