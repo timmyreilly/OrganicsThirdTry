@@ -11,6 +11,10 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using Microsoft.Azure.Documents.Client;
+using Microsoft.Azure.Documents.Linq;
+using Microsoft.Azure.Documents;
+
 
 namespace OrganicsThirdTry
 {
@@ -41,14 +45,10 @@ namespace OrganicsThirdTry
         [FunctionName("CreateRating")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequest req,
-            ILogger log,
-            [CosmosDB(
-                databaseName: "ChallengeTwo",
-                collectionName: "Ratings",
-                ConnectionStringSetting = "CosmosConnectionString",
-                CreateIfNotExists = true)]IAsyncCollector<Rating> document
-            )
+            ILogger log)
         {
+
+
             try
             {
                 log.LogInformation("C# Http trigger function processed a request... CreateRating");
@@ -79,16 +79,41 @@ namespace OrganicsThirdTry
                 }
 
                 var cosmosService = new CosmosService();
-                var rating = await cosmosService.CreateRatingFromDocument(data, document, client, log);
 
-                return (ActionResult)new OkObjectResult(rating);
+
+                var cosmosEndpointUri = new Uri(Environment.GetEnvironmentVariable("CosmosEndpoint", EnvironmentVariableTarget.Process));
+                var cosmosKey = Environment.GetEnvironmentVariable("CosmosKey", EnvironmentVariableTarget.Process);
+                var databaseName = "CheeseBurgerDatabase";
+                var databaseCollection = "CollectionOfCheeseburgers";
+
+                using (var dClient = new DocumentClient(cosmosEndpointUri, cosmosKey))
+                {
+
+                    log.LogInformation("GOT HERE");
+                    dClient.CreateDatabaseIfNotExistsAsync(new Database() { Id = databaseName }).GetAwaiter().GetResult();
+
+                    dClient.CreateDocumentCollectionIfNotExistsAsync(
+                    UriFactory.CreateDatabaseUri(databaseName),
+                    new DocumentCollection { Id = databaseCollection }).
+                    GetAwaiter()
+                    .GetResult();
+
+                    var rating = cosmosService.CreateRating(data);
+
+                    dClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(databaseName, databaseCollection), rating).GetAwaiter().GetResult();
+
+
+                    return (ActionResult)new OkObjectResult(rating);
+                }
+
 
 
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return (ActionResult)new BadRequestObjectResult("ERRRRORRRR");
+                log.LogInformation(e.ToString()); 
+                return (ActionResult)new BadRequestObjectResult(e.ToString());
             }
 
         }
