@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using Microsoft.Azure.Documents.Client;
+using Microsoft.Azure.Documents.Linq;
+
 
 namespace OrganicsThirdTry
 {
@@ -49,6 +52,11 @@ namespace OrganicsThirdTry
                 CreateIfNotExists = true)]IAsyncCollector<Rating> document
             )
         {
+
+            var cosmosEndpointUri = new Uri(Environment.GetEnvironmentVariable("CosmosEndpoint", EnvironmentVariableTarget.Process));
+            var cosmosKey = Environment.GetEnvironmentVariable("CosmosKey", EnvironmentVariableTarget.Process);
+
+            DocumentClient dClient = new DocumentClient(cosmosEndpointUri, cosmosKey);
             try
             {
                 log.LogInformation("C# Http trigger function processed a request... CreateRating");

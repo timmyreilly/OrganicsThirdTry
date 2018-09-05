@@ -8,6 +8,7 @@ using System.Linq;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace OrganicsThirdTry
 {
@@ -27,10 +28,16 @@ namespace OrganicsThirdTry
 
             if (!string.IsNullOrWhiteSpace(limitQueryParameter))
                 limit = int.Parse(limitQueryParameter);
-            
+
             var collectionUri = UriFactory.CreateDocumentCollectionUri("ChallengeTwo", "Ratings");
 
-            IDocumentQuery<Rating> query = documentClient.CreateDocumentQuery<Rating>(collectionUri)
+            var cosmosEndpointUri = new Uri(Environment.GetEnvironmentVariable("CosmosEndpoint", EnvironmentVariableTarget.Process));
+            var cosmosKey = Environment.GetEnvironmentVariable("CosmosKey", EnvironmentVariableTarget.Process);
+
+            DocumentClient dClient = new DocumentClient(cosmosEndpointUri, cosmosKey);
+
+
+            IDocumentQuery<Rating> query = dClient.CreateDocumentQuery<Rating>(collectionUri)
                 .Take(limit)
                 .AsDocumentQuery();
 

@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Microsoft.Azure.Documents.Client;
+using Microsoft.Azure.Documents.Linq;
+
 
 namespace OrganicsThirdTry
 {
@@ -41,6 +44,30 @@ namespace OrganicsThirdTry
             await document.AddAsync(rating);
 
             return rating;
+        }
+
+        public async Task<Rating> CreateRating(dynamic data, DocumentClient dClient, HttpClient client, ILogger logger) 
+        {
+            var id = Guid.NewGuid(); 
+            var timestamp = DateFormatHandling.UtcNow; 
+            var rand = new Random(); 
+
+                        var rating = new Rating
+            {
+                id = id,
+                userId = data.userId,
+                productId = data.productId,
+                timestamp = timestamp,
+                locationName = data.locationName,
+                rating = data.rating,
+                userNotes = data.userNotes
+                // ,
+                // magicNumber = rand.Next(),
+                // sentimentScore = sentimentScore
+            };
+
+            await dClient.UpsertDocumentAsync(data)
+
         }
     }
 }
