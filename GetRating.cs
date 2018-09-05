@@ -36,7 +36,7 @@ namespace OrganicsThirdTry
             var somethingDumb = System.Environment.GetEnvironmentVariable("CosmosEndpoint", EnvironmentVariableTarget.Process);
             log.LogInformation(somethingDumb);
 
-            // var guid = new System.Guid("9337a7bc-176c-4971-bf74-41537bb78ba9");
+            // var guid = new System.Guid("9337a7bc-176c-4971-bf74-41537bb78ba9")
             var guid = new System.Guid(id);
 
             var cosmosEndpointUri = new Uri(Environment.GetEnvironmentVariable("CosmosEndpoint", EnvironmentVariableTarget.Process));
