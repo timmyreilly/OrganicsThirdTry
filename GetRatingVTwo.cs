@@ -14,9 +14,9 @@ using Microsoft.Azure.Documents.Linq;
 
 namespace OrganicsThirdTry
 {
-    public static class GetRating
+    public static class GetRatingVTwo
     {
-        [FunctionName("GetRating")]
+        [FunctionName("GetRatingVTwo")]
         public static IActionResult Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequest req, ILogger log)
         {
             var limit = 100;
@@ -53,5 +53,4 @@ namespace OrganicsThirdTry
             return new OkObjectResult(rating.ToString());
         }
     }
-
 }

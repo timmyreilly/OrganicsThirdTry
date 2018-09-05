@@ -17,9 +17,6 @@ namespace OrganicsThirdTry
         [FunctionName("GetRatings")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ratings")]HttpRequest req,
-            [CosmosDB("ChallengeTwo", "Ratings",
-                ConnectionStringSetting = "CosmosConnectionString")]
-                DocumentClient documentClient,
             TraceWriter log
         )
         {
