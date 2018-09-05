@@ -17,17 +17,7 @@ namespace OrganicsThirdTry
     public static class GetRating
     {
         [FunctionName("GetRating")]
-<<<<<<< HEAD
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "rating")]HttpRequest req,
-            [CosmosDB("ChallengeTwo-Staging", "Ratings",
-                ConnectionStringSetting = "CosmosConnectionString")]
-                DocumentClient documentClient,
-            TraceWriter log
-        )
-=======
         public static IActionResult Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequest req, ILogger log)
->>>>>>> usingClientWithtouBinding
         {
             var limit = 100;
             var limitQueryParameter = req.Query["limit"];
@@ -41,16 +31,16 @@ namespace OrganicsThirdTry
             if (!string.IsNullOrWhiteSpace(limitQueryParameter))
                 limit = int.Parse(limitQueryParameter);
 
-            var collectionUri = UriFactory.CreateDocumentCollectionUri("ChallengeTwo", "Ratings");
+            var collectionUri = UriFactory.CreateDocumentCollectionUri("ChallengeThree", "Ratings");
 
-            var somethingDumb = System.Environment.GetEnvironmentVariable("CosmosEndpointProd", EnvironmentVariableTarget.Process);
+            var somethingDumb = System.Environment.GetEnvironmentVariable("CosmosEndpoint", EnvironmentVariableTarget.Process);
             log.LogInformation(somethingDumb);
 
             // var guid = new System.Guid("9337a7bc-176c-4971-bf74-41537bb78ba9");
             var guid = new System.Guid(id);
 
-            var cosmosEndpointUri = new Uri(Environment.GetEnvironmentVariable("CosmosEndpointProd", EnvironmentVariableTarget.Process));
-            var cosmosKey = Environment.GetEnvironmentVariable("CosmosKeyProd", EnvironmentVariableTarget.Process);
+            var cosmosEndpointUri = new Uri(Environment.GetEnvironmentVariable("CosmosEndpoint", EnvironmentVariableTarget.Process));
+            var cosmosKey = Environment.GetEnvironmentVariable("CosmosKey", EnvironmentVariableTarget.Process);
 
             DocumentClient dClient = new DocumentClient(cosmosEndpointUri, cosmosKey);
 

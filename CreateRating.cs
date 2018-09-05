@@ -83,24 +83,22 @@ namespace OrganicsThirdTry
 
                 var cosmosEndpointUri = new Uri(Environment.GetEnvironmentVariable("CosmosEndpoint", EnvironmentVariableTarget.Process));
                 var cosmosKey = Environment.GetEnvironmentVariable("CosmosKey", EnvironmentVariableTarget.Process);
-                var databaseName = "CheeseBurgerDatabase";
-                var databaseCollection = "CollectionOfCheeseburgers";
 
                 using (var dClient = new DocumentClient(cosmosEndpointUri, cosmosKey))
                 {
 
                     log.LogInformation("GOT HERE");
-                    dClient.CreateDatabaseIfNotExistsAsync(new Database() { Id = databaseName }).GetAwaiter().GetResult();
+                    dClient.CreateDatabaseIfNotExistsAsync(new Database() { Id = "ChallengeThree" }).GetAwaiter().GetResult();
 
                     dClient.CreateDocumentCollectionIfNotExistsAsync(
-                    UriFactory.CreateDatabaseUri(databaseName),
-                    new DocumentCollection { Id = databaseCollection }).
+                    UriFactory.CreateDatabaseUri("ChallengeThree"),
+                    new DocumentCollection { Id = "Ratings" }).
                     GetAwaiter()
                     .GetResult();
 
                     var rating = cosmosService.CreateRating(data);
 
-                    dClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(databaseName, databaseCollection), rating).GetAwaiter().GetResult();
+                    dClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri("ChallengeThree", "Ratings"), rating).GetAwaiter().GetResult();
 
 
                     return (ActionResult)new OkObjectResult(rating);

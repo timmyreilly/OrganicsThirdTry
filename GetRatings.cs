@@ -26,7 +26,7 @@ namespace OrganicsThirdTry
             if (!string.IsNullOrWhiteSpace(limitQueryParameter))
                 limit = int.Parse(limitQueryParameter);
 
-            var collectionUri = UriFactory.CreateDocumentCollectionUri("ChallengeTwo", "Ratings");
+            var collectionUri = UriFactory.CreateDocumentCollectionUri("ChallengeThree", "Ratings");
 
             var cosmosEndpointUri = new Uri(Environment.GetEnvironmentVariable("CosmosEndpoint", EnvironmentVariableTarget.Process));
             var cosmosKey = Environment.GetEnvironmentVariable("CosmosKey", EnvironmentVariableTarget.Process);
