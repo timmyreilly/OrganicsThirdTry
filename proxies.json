@@ -12,7 +12,7 @@
         {
             "matchCondition": {
                 "methods":["GET"],
-                "route": "/api/GetProduct{request.querystring.productId}"
+                "route": "/api/GetProduct"
             },
             "backendUri": "http://serverlessohproduct.trafficmanager.net/api/GetProduct?productId={request.querystring.productId}"
         }
