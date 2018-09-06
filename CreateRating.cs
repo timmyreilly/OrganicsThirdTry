@@ -56,7 +56,7 @@ namespace OrganicsThirdTry
                 string requestBody = new StreamReader(req.Body).ReadToEnd();
                 dynamic data = JsonConvert.DeserializeObject(requestBody);
 
-                // http://serverlessohuser.trafficmanager.net/api/GetUser
+                // http://serverlessohuser.trafficmanager.net/api/GetUser pop
                 // Validate User ID: 
                 var response = await client.GetAsync($"http://serverlessohuser.trafficmanager.net/api/GetUser?userId={data.userId}");
                 if (response.StatusCode != System.Net.HttpStatusCode.OK)
