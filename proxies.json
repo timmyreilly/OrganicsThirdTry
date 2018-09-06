@@ -26,7 +26,9 @@
                 ],
                 "route": "/api/GetUser"
             },
-            "backendUri": "http://serverlessohproduct.trafficmanager.net/api/GetUser?userId={request.querystring.userId}"
+            "backendUri": "http://serverlessohuser.trafficmanager.net/api/GetUser?userId={request.querystring.userId}"
         }
     }
 }
+
+// http://serverlessohuser.trafficmanager.net/api/GetUser?userId=cc20a6fb-a91f-4192-874d-132493685376
