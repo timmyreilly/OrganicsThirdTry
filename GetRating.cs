@@ -17,7 +17,7 @@ namespace OrganicsThirdTry
     public static class GetRating
     {
         [FunctionName("GetRating")]
-        public static IActionResult Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequest req, TraceWriter log)
+        public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequest req, TraceWriter log)
         {
             var limit = 100;
             var limitQueryParameter = req.Query["limit"];
