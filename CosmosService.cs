@@ -17,34 +17,34 @@ namespace OrganicsThirdTry
 {
     public class CosmosService
     {
-        public async Task<Rating> CreateRatingFromDocument(dynamic data, IAsyncCollector<Rating> document, HttpClient client, ILogger logger)
-        {
-            // Set unique id
-            var id = Guid.NewGuid();
+        // public async Task<Rating> CreateRatingFromDocument(dynamic data, IAsyncCollector<Rating> document, HttpClient client, ILogger logger)
+        // {
+        //     // Set unique id
+        //     var id = Guid.NewGuid();
 
-            // Set Timestamp
-            var timestamp = DateTime.UtcNow;
+        //     // Set Timestamp
+        //     var timestamp = DateTime.UtcNow;
 
-            var rand = new Random();
+        //     var rand = new Random();
 
-            var rating = new Rating
-            {
-                id = id,
-                userId = data.userId,
-                productId = data.productId,
-                timestamp = timestamp,
-                locationName = data.locationName,
-                rating = data.rating,
-                userNotes = data.userNotes
-                // ,
-                // magicNumber = rand.Next(),
-                // sentimentScore = sentimentScore
-            };
+        //     var rating = new Rating
+        //     {
+        //         id = id,
+        //         userId = data.userId,
+        //         productId = data.productId,
+        //         timestamp = timestamp,
+        //         locationName = data.locationName,
+        //         rating = data.rating,
+        //         userNotes = data.userNotes
+        //         // ,
+        //         // magicNumber = rand.Next(),
+        //         // sentimentScore = sentimentScore
+        //     };
 
-            await document.AddAsync(rating);
+        //     await document.AddAsync(rating);
 
-            return rating;
-        }
+        //     return rating;
+        // }
 
         public Rating CreateRating(dynamic data)
         {

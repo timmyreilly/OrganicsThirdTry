@@ -14,9 +14,9 @@ namespace Company.Function
     public static class HttpTriggerCSharp1
     {
         [FunctionName("HttpTriggerCSharp1")]
-        public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequest req, ILogger log)
+        public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequest req, TraceWriter log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            log.Info("C# HTTP trigger function processed a request.");
 
             string name = req.Query["name"];
 
@@ -25,7 +25,7 @@ namespace Company.Function
             name = name ?? data?.name;
 
             var somethingDumb = System.Environment.GetEnvironmentVariable("SomethingDumb", EnvironmentVariableTarget.Process);
-            log.LogInformation(somethingDumb); 
+            log.Info(somethingDumb); 
 
             return name != null
                 ? (ActionResult)new OkObjectResult($"Hello, {name}")

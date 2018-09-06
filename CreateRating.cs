@@ -45,13 +45,13 @@ namespace OrganicsThirdTry
         [FunctionName("CreateRating")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequest req,
-            ILogger log)
+            TraceWriter log)
         {
 
 
             try
             {
-                log.LogInformation("C# Http trigger function processed a request... CreateRating");
+                log.Info("C# Http trigger function processed a request... CreateRating");
 
                 string requestBody = new StreamReader(req.Body).ReadToEnd();
                 dynamic data = JsonConvert.DeserializeObject(requestBody);
@@ -87,7 +87,7 @@ namespace OrganicsThirdTry
                 using (var dClient = new DocumentClient(cosmosEndpointUri, cosmosKey))
                 {
 
-                    log.LogInformation("GOT HERE");
+                    log.Info("GOT HERE");
                     dClient.CreateDatabaseIfNotExistsAsync(new Database() { Id = "ChallengeThree" }).GetAwaiter().GetResult();
 
                     dClient.CreateDocumentCollectionIfNotExistsAsync(
@@ -109,8 +109,7 @@ namespace OrganicsThirdTry
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                log.LogInformation(e.ToString()); 
+                log.Info(e.ToString()); 
                 return (ActionResult)new BadRequestObjectResult(e.ToString());
             }
 
