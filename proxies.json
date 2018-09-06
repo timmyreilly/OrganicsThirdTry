@@ -12,9 +12,9 @@
         {
             "matchCondition": {
                 "methods":["GET"],
-                "route": "/api/GetRating/{request.querystring.productId}"
+                "route": "/api/GetProduct{request.querystring.productId}"
             },
-            "backendUri": "http://serverlessohproduct.trafficmanager.net/api/GetRating/{request.querystring.productId}"
+            "backendUri": "http://serverlessohproduct.trafficmanager.net/api/GetProduct?productId={request.querystring.productId}"
         }
     }
 }
