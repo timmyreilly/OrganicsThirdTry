@@ -6,7 +6,15 @@
                 "methods": [ "GET" ],
                 "route": "/api/GetProducts"
             },
-            "backendUri": " http://serverlessohproduct.trafficmanager.net"
+            "backendUri": "http://serverlessohproduct.trafficmanager.net"
+        },
+        "GetTheProduct":
+        {
+            "matchCondition": {
+                "methods":["GET"],
+                "route": "/api/GetRating/{request.querystring.productId}"
+            },
+            "backendUri": "http://serverlessohproduct.trafficmanager.net"
         }
     }
 }
