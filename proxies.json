@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json.schemastore.org/proxies",
+    "proxies": {
+        "GetTheProducts": {
+            "matchCondition": {
+                "methods": [ "GET" ],
+                "route": "/api/GetProducts"
+            },
+            "backendUri": " http://serverlessohproduct.trafficmanager.net"
+        }
+    }
+}
