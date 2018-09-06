@@ -3,18 +3,30 @@
     "proxies": {
         "GetTheProducts": {
             "matchCondition": {
-                "methods": [ "GET" ],
+                "methods": [
+                    "GET"
+                ],
                 "route": "/api/GetProducts"
             },
             "backendUri": "http://serverlessohproduct.trafficmanager.net/api/GetProducts"
         },
-        "GetTheProduct":
-        {
+        "GetTheProduct": {
             "matchCondition": {
-                "methods":["GET"],
+                "methods": [
+                    "GET"
+                ],
                 "route": "/api/GetProduct"
             },
             "backendUri": "http://serverlessohproduct.trafficmanager.net/api/GetProduct?productId={request.querystring.productId}"
+        },
+        "GetTheUser": {
+            "matchCondition": {
+                "methods": [
+                    "GET"
+                ],
+                "route": "/api/GetUser"
+            },
+            "backendUri": "http://serverlessohproduct.trafficmanager.net/api/GetUser?userId={request.querystring.userId}"
         }
     }
 }
