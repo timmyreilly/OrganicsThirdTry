@@ -13,16 +13,16 @@ CosmosConnectionString is a application settings... Not a connection string.
 
 
 Had to add this to Csproj: 
-'''
+```XML 
     <None Update="proxies.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 
     </None>
-'''
+``` 
 
 Like this: 
 
-'''
+```XML
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -46,7 +46,7 @@ Like this:
     </None>
   </ItemGroup>
 </Project>
-'''
+``` 
 
 Some Endpoints: 
 
@@ -60,13 +60,12 @@ Azure Function:
 Get Specific Rating: ` https://dumbdumbthree.azurewebsites.net/api/GetRating?id=f7661784-2c69-4f6c-bfd3-1f4cdafe2087 `
 Get All Ratings: ` https://dumbdumbthree.azurewebsites.net/api/ratings `
 Get Product (Proxy): ` https://dumbdumbthree.azurewebsites.net/api/GetProduct?productId=75542e38-563f-436f-adeb-f426f1dabb5c `
-Get User (Proxy): 
-Get All Products (Proxy): 
+Get User (Proxy): ` https://dumbdumbthree.azurewebsites.net/api/GetUser?userId=cc20a6fb-a91f-4192-874d-132493685376 `
+Get All Products (Proxy): ` https://dumbdumbthree.azurewebsites.net/api/GetPRoducts ` 
 Create Rating: 
 URL: `https://dumbdumbthree.azurewebsites.net/api/CreateRating`
 BODY:  
-
-'''
+```JSON 
 {
     "userId": "cc20a6fb-a91f-4192-874d-132493685376",
     "productId": "4c25613a-a3c2-4ef3-8e02-9c335eb23204",
@@ -74,4 +73,4 @@ BODY:
     "rating": 5,
     "userNotes": "I love the subtle notes of cheese in this poo burger!"
 }
-'''
+``` 
