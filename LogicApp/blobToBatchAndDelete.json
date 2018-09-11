@@ -11,10 +11,27 @@
     "definition": {
         "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
         "actions": {
+            "Delete_blob": {
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['azureblob']['connectionId']"
+                        }
+                    },
+                    "method": "delete",
+                    "path": "/datasets/default/files/@{encodeURIComponent(encodeURIComponent(triggerBody()?['FileLocator']))}"
+                },
+                "runAfter": {
+                    "dumbdumbbatch": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
             "dumbdumbbatch": {
                 "inputs": {
                     "batchName": "OrderDetails",
-                    "content": "@{triggerBody()}@{triggerBody()?['Path']}",
+                    "content": "FilePath: @{triggerBody()?['Path']}  ",
                     "host": {
                         "triggerName": "Batch_messages",
                         "workflow": {
@@ -54,7 +71,7 @@
                 },
                 "recurrence": {
                     "frequency": "Second",
-                    "interval": 50
+                    "interval": 5
                 },
                 "splitOn": "@triggerBody()",
                 "type": "ApiConnection"
