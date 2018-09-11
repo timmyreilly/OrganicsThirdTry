@@ -44,11 +44,7 @@
                     "configurations": {
                         "OrderDetails": {
                             "releaseCriteria": {
-                                "messageCount": 3,
-                                "recurrence": {
-                                    "frequency": "minute",
-                                    "interval": 1
-                                }
+                                "messageCount": 3
                             }
                         }
                     },
