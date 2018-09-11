@@ -1,0 +1,61 @@
+{
+    "$connections": {
+        "value": {
+            "office365": {
+                "connectionId": "/subscriptions/1b6a0f9d-fe70-4fb5-ae24-5b615270aebe/resourceGroups/DUMBDUMBTHREE/providers/Microsoft.Web/connections/office365-1",
+                "connectionName": "office365-1",
+                "id": "/subscriptions/1b6a0f9d-fe70-4fb5-ae24-5b615270aebe/providers/Microsoft.Web/locations/southcentralus/managedApis/office365"
+            }
+        }
+    },
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Send_an_email": {
+                "inputs": {
+                    "body": {
+                        "Body": "Some stuff came in: @{triggerBody()['items']}",
+                        "Subject": "@{triggerBody()['batchName']} iiiiisss the batch name",
+                        "To": "timreilly@live.com"
+                    },
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['office365']['connectionId']"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/Mail"
+                },
+                "runAfter": {},
+                "type": "ApiConnection"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "Batch_messages": {
+                "inputs": {
+                    "configurations": {
+                        "OrderDetails": {
+                            "releaseCriteria": {
+                                "messageCount": 3,
+                                "recurrence": {
+                                    "frequency": "minute",
+                                    "interval": 1
+                                }
+                            }
+                        }
+                    },
+                    "mode": "Inline"
+                },
+                "type": "Batch"
+            }
+        }
+    }
+}
