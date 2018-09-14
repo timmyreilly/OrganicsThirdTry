@@ -2,6 +2,12 @@
 To add settings for Cosmos: 
 `func settings add CosmosConnectionString "AccountEndpoint=https://asldkfjasldkfjasdf CONNECTION STRING"`
 
+To Install Extensions: 
+`Microsoft.Azure.WebJobs.Extensions.EventGrid -Version 1.0.0` 
+
+Or Manually Add it to .csproj: 
+`<PackageReference Include="Microsoft.Azure.WebJobs.Extensions.EventGrid" Version="1.0.0" />`
+
 // Some Quick Notes...
 
 Make sure you convert the Id coming in to a Guid. 

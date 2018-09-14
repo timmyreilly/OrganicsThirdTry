@@ -7,20 +7,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs.Host;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
+using Microsoft.Azure.WebJobs.Extensions.EventGrid;
+// using Microsoft.Azure.EventGrid.Models;
+
 
 namespace Company.Function
 {
     public static class EventGridTrigger
     {
         [FunctionName("EventGridTrigger")]
-        public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequest req, ILogger log)
+        public static IActionResult Run([EventGridTrigger]EventGridEvent eventGridEvent, ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            string name = req.Query["name"];
+            var name = eventGridEvent.Data; 
 
-            string requestBody = new StreamReader(req.Body).ReadToEnd();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
+            // var requestBody = new StreamReader(eventGridEvent).ReadToEnd();
+            dynamic data = name; 
             name = name ?? data?.name;
 
             return name != null
