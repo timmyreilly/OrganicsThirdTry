@@ -14,10 +14,10 @@ using Newtonsoft.Json.Linq;
 
 namespace Company.Function
 {
-    public static class EventGridTrigger
+    public static class EventHubTrigger
     {
-        [FunctionName("EventGridTrigger")]
-        public static void Run([EventGridTrigger]JObject eventGridEvent, TraceWriter log)
+        [FunctionName("EventHubTrigger")]
+        public static void Run([EventHubTrigger]JObject EventHubEvent, TraceWriter log)
         {
             log.Info(eventGridEvent.ToString(Formatting.Indented));
         }

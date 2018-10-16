@@ -8,6 +8,10 @@ To Install Extensions:
 Or Manually Add it to .csproj: 
 `<PackageReference Include="Microsoft.Azure.WebJobs.Extensions.EventGrid" Version="1.0.0" />`
 
+This package for cosmosDB Work: https://www.nuget.org/packages/Microsoft.Azure.WebJobs.Extensions.CosmosDB 
+How to install: 
+`func extensions install Microsoft.Azure.WebJobs.Extensions.CosmosDB -Version 3.0.1`
+
 // Some Quick Notes...
 
 Make sure you convert the Id coming in to a Guid. 

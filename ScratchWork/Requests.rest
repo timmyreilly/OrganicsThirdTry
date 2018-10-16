@@ -1,0 +1,13 @@
+###
+
+POST https://serverlessohmanagementapi.trafficmanager.net/api/team/registerEventHub
+content-type: application/json 
+
+{
+    "teamTableNumber" : 1,
+    "eventHubConnectionString" : "Endpoint=sb://organigz.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=5A1WDvoN/132i5o+fk6Q/E41+mQBRl3hc4h0/N7xR+4=",
+    "eventHubName" : "bighub"
+}
+
+
+###
