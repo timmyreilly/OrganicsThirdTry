@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs.Host;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
-using Microsoft.Azure.WebJobs.Extensions.EventGrid;
 using Newtonsoft.Json.Linq;
+using Microsoft.Azure.WebJobs.EventHubs;
 // using Microsoft.Azure.EventGrid.Models;
 
 
@@ -17,9 +17,10 @@ namespace Company.Function
     public static class EventHubTrigger
     {
         [FunctionName("EventHubTrigger")]
-        public static void Run([EventHubTrigger]JObject EventHubEvent, TraceWriter log)
+        public static void Run(
+            [EventHubTrigger("bighub", Connection = "EventHubsNameSpaceSASConnectionString")] string myEventHubMessage, TraceWriter log)
         {
-            log.Info(eventGridEvent.ToString(Formatting.Indented));
+            log.Info(myEventHubMessage);
         }
     }
 }
